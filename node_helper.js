@@ -12,7 +12,7 @@ module.exports = NodeHelper.create({
         Log.log("Starting node helper for: " + this.name);
 
         this.instances = [];
-        this.peloton_api_url = "https://api.clashroyale.com/v1/";
+        this.clash_royale_api_url = "https://api.clashroyale.com/v1/";
     },
 
     /**
