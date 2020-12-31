@@ -27,6 +27,15 @@ Module.register("MMM-ClashRoyaleChests", {
         if (!this.config.player_tag.startsWith("#", 0)) {
             this.config.player_tag = "#" + this.config.player_tag;
         }
+
+        this.sendSocketNotification(this.normalizeNotification("SET_CONFIG"), {
+            instance_identifier: this.identifier,
+            config: this.config
+        });
+
+        this.sendSocketNotification(this.normalizeNotification("REQUEST_UPCOMING_CHESTS"), {
+            instance_identifier: this.identifier
+        });
     },
 
     /**
@@ -47,5 +56,19 @@ Module.register("MMM-ClashRoyaleChests", {
         let data = {};
 
         return data;
-    }
+    },
+
+    /**
+	 * This function will make it so that the socket notification names
+	 * are guaranteed to be unique for our module.  This makes it so
+	 * that we do not have to worry about naming collisions with other
+	 * modules.
+	 *
+	 * @param string notification
+	 *
+	 * @return string
+	 */
+	normalizeNotification: function(notification) {
+		return this.name + "_" + notification;
+	},
 });
