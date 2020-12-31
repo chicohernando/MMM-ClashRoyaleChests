@@ -1,0 +1,6 @@
+{% if sign_in_error %}
+	Failed to retrieve data
+{% elseif chests and chests|length %}
+{% else %}
+	Loading...
+{% endif %}
