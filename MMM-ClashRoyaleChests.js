@@ -31,7 +31,7 @@ Module.register("MMM-ClashRoyaleChests", {
      * @return string
      */
     getTemplate: function() {
-        return "chests.njk";
+        return "templates/chests.njk";
     },
 
     /**
