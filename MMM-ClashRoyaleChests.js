@@ -1,6 +1,5 @@
 Module.register("MMM-ClashRoyaleChests", {
     defaults: {
-        //timer
         refresh_every: 300, //number of seconds between data refreshes
 
         api_key: "",        //generate a new key at https://developer.clashroyale.com/#/account
