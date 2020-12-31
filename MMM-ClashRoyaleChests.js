@@ -12,6 +12,11 @@ Module.register("MMM-ClashRoyaleChests", {
         debug: false        //true or false; if true you will see more information in your log files
     },
 
+    /**
+     * Entry point for our module
+     * 
+     * @return void
+     */
     start: function() {
         //make sure that limit is a sane value
         if (this.config.limit < 1 || this.config.limit > 9) {
