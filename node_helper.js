@@ -134,7 +134,7 @@ module.exports = NodeHelper.create({
             json: true
         }, function(error, response, body) {
             self.debug("Received response for /players/player_tag/upcomingchests", instance_identifier);
-            self.debug(JSON.stringify(response, null, 2));
+            self.debug(JSON.stringify(response, null, 2), instance_identifier);
 
             if (error) {
                 self.sendSocketNotification("FAILED_TO_RETRIEVE_UPCOMING_CHESTS", {
