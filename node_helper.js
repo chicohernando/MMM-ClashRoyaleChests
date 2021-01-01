@@ -81,7 +81,7 @@ module.exports = NodeHelper.create({
                 this.createInstance(payload.instance_identifier, payload.config);
                 break;
             case this.normalizeNotification("REQUEST_UPCOMING_CHESTS"):
-                this.debug("This is where we would request some chests", payload.instance_identifier);
+                this.getUpcomingChests(payload.instance_identifier);
                 break;
         }
     },
@@ -106,5 +106,50 @@ module.exports = NodeHelper.create({
         instance.chests = [];
 
         this.instances[instance_identifier] = instance;
-    }
-});
+    },
+
+    /**
+     * This will attempt to retrieve data from the Clash Royale API.
+     * 
+     * This function doesn't return anything, however, depending on the API
+	 * response it will send an appropriate socket notification to the front
+	 * end.
+     * 
+     * @param string instance_identifier 
+     * 
+     * @return void
+     */
+    getUpcomingChests: function(instance_identifier) {
+        let self = this;
+        let instance = this.instances[instance_identifier];
+
+        this.debug("Requesting upcoming chests for: " + instance.config.player_tag, instance_identifier);
+
+        request({
+            headers: {
+                Authorization: "Bearer " + instance.config.api_key
+            },
+            url: this.clash_royale_api_url + "players/" + encodeURIComponent(instance.config.player_tag) + "/upcomingchests",
+            method: "GET",
+            json: true
+        }, function(error, response, body) {
+            self.debug("Received response for /players/player_tag/upcomingchests", instance_identifier);
+            self.debug(JSON.stringify(response, null, 2));
+
+            if (error) {
+                self.sendSocketNotification("FAILED_TO_RETRIEVE_UPCOMING_CHESTS", {
+                    instance_identifier: instance_identifier
+                });
+            } else if (response.statusCode === 200) {
+                self.sendSocketNotification("RETRIEVED_UPCOMING_CHESTS", {
+                    instance_identifier: instance_identifier,
+                    chests: body.items
+                });
+            } else {
+                self.sendSocketNotification("FAILED_TO_RETRIEVE_UPCOMING_CHESTS", {
+                    instance_identifier: instance_identifier
+                });
+            }
+        });
+    },
+}); 
