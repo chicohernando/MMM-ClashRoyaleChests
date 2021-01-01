@@ -28,6 +28,10 @@ Module.register("MMM-ClashRoyaleChests", {
             this.config.limit = 5;
         }
 
+        if (this.config.refresh_every < 60 || this.config.refresh_every > 86400) {
+            this.config.refresh_every = 300;
+        }
+
         //make sure that player tag starts with a #
         if (!this.config.player_tag.startsWith("#", 0)) {
             this.config.player_tag = "#" + this.config.player_tag;
