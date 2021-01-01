@@ -1,6 +1,15 @@
-{% if sign_in_error %}
+{% if has_data_retrieval_failed %}
 	Failed to retrieve data
 {% elseif chests and chests|length %}
-{% else %}
+    <div class="chests">
+        <ol>
+            {% for chest in chests %}
+                <li>
+                    {{ chest.name|replace(" Chest", "") }}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% elseif is_loading %}
 	Loading...
 {% endif %}
