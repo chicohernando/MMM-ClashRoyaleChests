@@ -60,10 +60,10 @@ module.exports = NodeHelper.create({
             }
 
             if (typeof Log !== "undefined" && typeof Log.log === "function") {
-				Log.log(prefix + string_to_log);
-			} else {
-				console.log(prefix + string_to_log);
-			}
+                Log.log(prefix + string_to_log);
+            } else {
+                console.log(prefix + string_to_log);
+            }
         }
     },
     
@@ -116,8 +116,8 @@ module.exports = NodeHelper.create({
      * This will attempt to retrieve data from the Clash Royale API.
      * 
      * This function doesn't return anything, however, depending on the API
-	 * response it will send an appropriate socket notification to the front
-	 * end.
+     * response it will send an appropriate socket notification to the front
+     * end.
      * 
      * @param string instance_identifier 
      * 
