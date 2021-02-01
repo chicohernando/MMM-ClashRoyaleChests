@@ -9,7 +9,7 @@ module.exports = NodeHelper.create({
      * @return void
      */
     start: function () {
-        Log.log("Starting node helper for: " + this.name);
+        this.debug("Starting node helper for: " + this.name);
 
         this.instances = [];
         this.clash_royale_api_url = "https://api.clashroyale.com/v1/";
@@ -59,7 +59,11 @@ module.exports = NodeHelper.create({
                 prefix = "[" + this.name + "] ";
             }
 
-            Log.log(prefix + string_to_log);
+            if (typeof Log !== "undefined" && typeof Log.log === "function") {
+				Log.log(prefix + string_to_log);
+			} else {
+				console.log(prefix + string_to_log);
+			}
         }
     },
     
